@@ -23,7 +23,8 @@ class StoreJobRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'company_id' => 'required|exists:companies,id',
+            'company_id' => 'nullable|exists:companies,id',
+            'company_name' => 'required_without:company_id|string|max:255',
             'location' => 'nullable|string|max:255',
             'description' => 'required|string',
             'type' => 'required|in:full-time,part-time,contract,internship',
