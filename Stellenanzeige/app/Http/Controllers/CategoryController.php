@@ -14,7 +14,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $perPage = (int) request('per_page', 50);
+        if ($perPage < 1) { $perPage = 1; }
+        if ($perPage > 100) { $perPage = 100; }
+        $categories = Category::orderBy('name')->paginate($perPage)->withQueryString();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -22,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -30,7 +34,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $category = Category::create($request->validated());
+        return redirect()->route('categories.show', $category)->with('status', 'Kategorie erstellt');
     }
 
     /**
@@ -38,7 +43,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $category->load(['jobListings' => function ($q) { $q->latest('id'); }]);
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -46,7 +52,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -54,7 +60,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return redirect()->route('categories.show', $category)->with('status', 'Kategorie aktualisiert');
     }
 
     /**
@@ -62,6 +69,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('status', 'Kategorie gelöscht');
     }
 }

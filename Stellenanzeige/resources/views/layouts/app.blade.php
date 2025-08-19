@@ -16,6 +16,8 @@
 			<div class="brand">Jobboard</div>
 			<nav>
 				<a href="{{ route('jobs.index') }}">Jobs</a>
+				<a href="{{ route('companies.index') }}">Firmen</a>
+				<a href="{{ route('categories.index') }}">Kategorien</a>
 				<a href="{{ route('jobs.create') }}">Neu</a>
 			</nav>
 		</div>

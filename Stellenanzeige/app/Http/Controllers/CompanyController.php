@@ -14,7 +14,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $perPage = (int) request('per_page', 50);
+        if ($perPage < 1) { $perPage = 1; }
+        if ($perPage > 100) { $perPage = 100; }
+        $companies = Company::orderBy('name')->paginate($perPage)->withQueryString();
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -22,7 +26,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -30,7 +34,8 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        $company = Company::create($request->validated());
+        return redirect()->route('companies.show', $company)->with('status', 'Firma erstellt');
     }
 
     /**
@@ -38,7 +43,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        $company->load(['jobListings' => function ($q) { $q->latest('id'); }]);
+        return view('companies.show', compact('company'));
     }
 
     /**
@@ -46,7 +52,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view('companies.edit', compact('company'));
     }
 
     /**
@@ -54,7 +60,8 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        $company->update($request->validated());
+        return redirect()->route('companies.show', $company)->with('status', 'Firma aktualisiert');
     }
 
     /**
@@ -62,6 +69,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect()->route('companies.index')->with('status', 'Firma gelöscht');
     }
 }
