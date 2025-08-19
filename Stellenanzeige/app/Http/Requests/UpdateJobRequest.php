@@ -23,7 +23,8 @@ class UpdateJobRequest extends FormRequest
     {
         return [
             'title' => 'sometimes|required|string|max:255',
-            'company_id' => 'sometimes|required|exists:companies,id',
+            'company_id' => 'sometimes|nullable|exists:companies,id',
+            'company_name' => 'sometimes|required_without:company_id|string|max:255',
             'location' => 'sometimes|nullable|string|max:255',
             'description' => 'sometimes|required|string',
             'type' => 'sometimes|required|in:full-time,part-time,contract,internship',
