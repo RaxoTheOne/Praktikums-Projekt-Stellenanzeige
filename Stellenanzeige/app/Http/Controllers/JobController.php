@@ -14,7 +14,13 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = JobListing::with(['company', 'categories'])->latest()->paginate(10);
+        $perPage = (int) request('per_page', 50);
+        if ($perPage < 1) { $perPage = 1; }
+        if ($perPage > 100) { $perPage = 100; }
+        $jobs = JobListing::with(['company', 'categories'])
+            ->orderBy('id', 'desc')
+            ->paginate($perPage)
+            ->withQueryString();
         return view('jobs.index', compact('jobs'));
     }
 
