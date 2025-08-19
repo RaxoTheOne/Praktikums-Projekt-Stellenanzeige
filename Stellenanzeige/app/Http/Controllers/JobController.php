@@ -37,6 +37,13 @@ class JobController extends Controller
         $categoryIds = $validated['category_ids'] ?? [];
         unset($validated['category_ids']);
 
+        // Create company on the fly if company_name provided
+        if (empty($validated['company_id']) && $request->filled('company_name')) {
+            $company = Company::firstOrCreate(['name' => $request->string('company_name')]);
+            $validated['company_id'] = $company->id;
+        }
+        unset($validated['company_name']);
+
         $job = JobListing::create($validated);
         if (!empty($categoryIds)) {
             $job->categories()->sync($categoryIds);
@@ -73,6 +80,12 @@ class JobController extends Controller
         $validated = $request->validated();
         $categoryIds = $validated['category_ids'] ?? null;
         unset($validated['category_ids']);
+
+        if (array_key_exists('company_name', $validated) && empty($validated['company_id']) && $request->filled('company_name')) {
+            $company = Company::firstOrCreate(['name' => $request->string('company_name')]);
+            $validated['company_id'] = $company->id;
+        }
+        unset($validated['company_name']);
 
         $job->update($validated);
         if ($categoryIds !== null) {
