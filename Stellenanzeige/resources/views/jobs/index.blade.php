@@ -1,29 +1,19 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs</title>
-    <style>
-        body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 1rem; }
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        th, td { border: 1px solid #ddd; padding: .5rem; text-align: left; }
-        .actions { display: flex; gap: .5rem; }
-        .badge { display: inline-block; padding: 0 .5rem; border: 1px solid #ccc; border-radius: .25rem; margin-right: .25rem; font-size: .85em; }
-        .topbar { display:flex; justify-content: space-between; align-items:center; }
-    </style>
-  </head>
-  <body>
-    <div class="topbar">
-        <h1>Stellenanzeigen</h1>
-        <a href="{{ route('jobs.create') }}">Neue Anzeige</a>
-    </div>
+@extends('layouts.app')
+
+@section('title', 'Jobs')
+
+@section('content')
+    <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            <h1 style="margin:0;">Stellenanzeigen</h1>
+            <a class="button" href="{{ route('jobs.create') }}">Neue Anzeige</a>
+        </div>
 
     @if(session('status'))
         <p>{{ session('status') }}</p>
     @endif
 
-    <table>
+    <table class="table" style="margin-top:12px;">
         <thead>
             <tr>
                 <th>Titel</th>
@@ -47,11 +37,11 @@
                     @endforeach
                 </td>
                 <td class="actions">
-                    <a href="{{ route('jobs.edit', $job) }}">Bearbeiten</a>
+                    <a class="button secondary" href="{{ route('jobs.edit', $job) }}">Bearbeiten</a>
                     <form action="{{ route('jobs.destroy', $job) }}" method="POST" onsubmit="return confirm('Wirklich löschen?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">Löschen</button>
+                        <button class="button danger" type="submit">Löschen</button>
                     </form>
                 </td>
             </tr>
@@ -64,7 +54,7 @@
     <div style="margin-top:1rem;">
         {{ $jobs->links() }}
     </div>
-  </body>
-  </html>
+    </div>
+@endsection
 
 
