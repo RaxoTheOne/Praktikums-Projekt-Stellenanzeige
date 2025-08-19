@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,3 +23,5 @@ Route::get('/debug/seed-demo', function () {
         'user' => $user,
     ]);
 });
+
+Route::resource('jobs', JobController::class);
