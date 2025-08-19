@@ -23,12 +23,14 @@ class UpdateJobRequest extends FormRequest
     {
         return [
             'title' => 'sometimes|required|string|max:255',
-            'company' => 'sometimes|required|string|max:255',
+            'company_id' => 'sometimes|required|exists:companies,id',
             'location' => 'sometimes|nullable|string|max:255',
             'description' => 'sometimes|required|string',
             'type' => 'sometimes|required|in:full-time,part-time,contract,internship',
             'salary' => 'sometimes|nullable|integer|min:0',
             'published_at' => 'sometimes|nullable|date',
+            'category_ids' => 'sometimes|array',
+            'category_ids.*' => 'integer|exists:categories,id',
         ];
     }
 }
