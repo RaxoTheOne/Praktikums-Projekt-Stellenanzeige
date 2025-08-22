@@ -42,12 +42,14 @@ header .inner {
 }
 
 nav a {
-    color: var(--text);
+    color: var(--primary);
     text-decoration: none;
-    margin-right: 12px
+    margin-right: 12px;
+    transition: color 0.2s ease
 }
 
 nav a:hover {
+    color: #16a34a;
     text-decoration: underline
 }
 
@@ -104,6 +106,29 @@ nav a:hover {
 .button.danger {
     background: var(--danger);
     color: #fff
+}
+
+/* Allgemeine Link-Styles */
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease
+}
+
+a:hover {
+    color: #16a34a;
+    text-decoration: underline
+}
+
+/* Links in Tabellen */
+.table a {
+    color: var(--primary);
+    font-weight: 500
+}
+
+.table a:hover {
+    color: #16a34a;
+    text-decoration: underline
 }
 
 label {
