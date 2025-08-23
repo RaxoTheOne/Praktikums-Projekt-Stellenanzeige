@@ -3,6 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Company;
+use App\Models\Category;
+use App\Models\JobListing;
+use App\Policies\CompanyPolicy;
+use App\Policies\CategoryPolicy;
+use App\Policies\JobListingPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Registriere Policies
+        Gate::policy(Company::class, CompanyPolicy::class);
+        Gate::policy(Category::class, CategoryPolicy::class);
+        Gate::policy(JobListing::class, JobListingPolicy::class);
     }
 }
