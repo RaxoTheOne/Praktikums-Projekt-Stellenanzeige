@@ -15,11 +15,11 @@
 		<div class="inner container">
 			<div class="brand">Jobboard</div>
 			<nav>
-				<a href="{{ route('dashboard.index') }}">Dashboard</a>
-				<a href="{{ route('jobs.index') }}">Jobs</a>
-				<a href="{{ route('companies.index') }}">Firmen</a>
-				<a href="{{ route('categories.index') }}">Kategorien</a>
-				<a href="{{ route('jobs.create') }}">Neu</a>
+				<a href="{{ route('dashboard.index') }}" class="{{ request()->routeIs('dashboard.*') ? 'active' : '' }}">Dashboard</a>
+				<a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Jobs</a>
+				<a href="{{ route('companies.index') }}" class="{{ request()->routeIs('companies.*') ? 'active' : '' }}">Firmen</a>
+				<a href="{{ route('categories.index') }}" class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">Kategorien</a>
+				<a href="{{ route('jobs.create') }}" class="{{ request()->routeIs('jobs.create') ? 'active' : '' }}">Neu</a>
 			</nav>
 		</div>
 	</header>
