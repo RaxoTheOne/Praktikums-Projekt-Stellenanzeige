@@ -23,7 +23,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
-            'slug' => 'sometimes|required|string|max:255|unique:categories,slug,' . $this->route('category'),
+            'slug' => 'sometimes|required|string|max:255|unique:categories,slug,' . $this->route('category')->id,
         ];
     }
 }
