@@ -15,6 +15,7 @@
 		<div class="inner container">
 			<div class="brand">Jobboard</div>
 			<nav>
+				<a href="{{ route('dashboard.index') }}">Dashboard</a>
 				<a href="{{ route('jobs.index') }}">Jobs</a>
 				<a href="{{ route('companies.index') }}">Firmen</a>
 				<a href="{{ route('categories.index') }}">Kategorien</a>
@@ -22,6 +23,7 @@
 			</nav>
 		</div>
 	</header>
+
 	<main class="container" style="margin-top:16px;">
 		@yield('content')
 	</main>
