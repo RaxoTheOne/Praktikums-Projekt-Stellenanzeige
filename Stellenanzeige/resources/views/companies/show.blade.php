@@ -4,10 +4,20 @@
 <div class="panel">
     @if(session('status'))<p>{{ session('status') }}</p>@endif
     <a class="button secondary" href="{{ route('companies.index') }}">← Zur Liste</a>
-    <h1 style="margin:12px 0 0 0;">{{ $company->name }}</h1>
-    <p><strong>Website:</strong> {{ $company->website }}</p>
-    <p><strong>Email:</strong> {{ $company->email }}</p>
-    <p><strong>Telefon:</strong> {{ $company->phone }}</p>
+
+    <div style="display: flex; gap: 2rem; align-items: flex-start; margin: 1rem 0;">
+        @if($company->logo)
+            <div style="flex-shrink: 0;">
+                <img src="{{ $company->logo_url }}" alt="Logo von {{ $company->name }}" style="max-width: 150px; max-height: 150px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            </div>
+        @endif
+        <div style="flex-grow: 1;">
+            <h1 style="margin:12px 0 0 0;">{{ $company->name }}</h1>
+            <p><strong>Website:</strong> {{ $company->website }}</p>
+            <p><strong>Email:</strong> {{ $company->email }}</p>
+            <p><strong>Telefon:</strong> {{ $company->phone }}</p>
+        </div>
+    </div>
 
     <h3>Stellenanzeigen</h3>
     <ul>
