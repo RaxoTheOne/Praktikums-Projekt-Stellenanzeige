@@ -13,7 +13,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können Firmen einsehen
     }
 
     /**
@@ -21,7 +21,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können einzelne Firmen einsehen
     }
 
     /**
@@ -29,7 +29,7 @@ class CompanyPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können Firmen erstellen
     }
 
     /**
@@ -37,7 +37,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können Firmen bearbeiten
     }
 
     /**
@@ -45,7 +45,7 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können Firmen löschen
     }
 
     /**
@@ -53,7 +53,7 @@ class CompanyPolicy
      */
     public function restore(User $user, Company $company): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können Firmen wiederherstellen
     }
 
     /**
@@ -61,6 +61,6 @@ class CompanyPolicy
      */
     public function forceDelete(User $user, Company $company): bool
     {
-        return false;
+        return true; // Alle angemeldeten Benutzer können Firmen endgültig löschen
     }
 }
