@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,11 @@ Route::get('/debug/seed-demo', function () {
         'user' => $user,
     ]);
 });
+
+// Dashboard routes
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard/search', [DashboardController::class, 'search'])->name('dashboard.search');
+Route::get('/dashboard/export', [DashboardController::class, 'export'])->name('dashboard.export');
 
 Route::resource('jobs', JobController::class);
 Route::resource('companies', CompanyController::class);
