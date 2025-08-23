@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Company;
-use App\Models\Category;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,17 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Erstelle einen Test-User
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
-        // Basic seed for companies and categories
-        Company::factory()->count(5)->create();
-        Category::factory()->count(6)->create();
-
+        // Rufe den JobSeeder auf, der alle anderen Daten erstellt
         $this->call(JobSeeder::class);
     }
 }

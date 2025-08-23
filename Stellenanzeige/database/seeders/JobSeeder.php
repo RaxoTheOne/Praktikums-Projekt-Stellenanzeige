@@ -14,20 +14,31 @@ class JobSeeder extends Seeder
      */
     public function run(): void
     {
+        // Erstelle alle 15 deutschen Firmen
         $companies = Company::all();
         if ($companies->isEmpty()) {
-            $companies = Company::factory()->count(5)->create();
+            $companies = Company::factory()->count(15)->create();
         }
 
-        JobListing::factory()->count(20)->make()->each(function ($job) use ($companies) {
+        // Erstelle alle 20 deutschen Kategorien
+        $categories = Category::all();
+        if ($categories->isEmpty()) {
+            $categories = Category::factory()->count(20)->create();
+        }
+
+        // Erstelle alle 50 deutschen Stellenanzeigen
+        JobListing::factory()->count(50)->make()->each(function ($job) use ($companies, $categories) {
             $job->company_id = $companies->random()->id;
             $job->save();
 
-            $categoryIds = Category::inRandomOrder()->limit(rand(1, 3))->pluck('id');
-            if ($categoryIds->isEmpty()) {
-                $categoryIds = Category::factory()->count(3)->create()->pluck('id');
-            }
+            // Weise 1-3 Kategorien zu
+            $categoryIds = $categories->random(rand(1, 3))->pluck('id');
             $job->categories()->sync($categoryIds);
         });
+
+        $this->command->info('Deutsche Dummy-Daten erfolgreich erstellt!');
+        $this->command->info('- ' . $companies->count() . ' deutsche Firmen');
+        $this->command->info('- ' . $categories->count() . ' deutsche Berufskategorien');
+        $this->command->info('- ' . JobListing::count() . ' deutsche Stellenanzeigen');
     }
 }

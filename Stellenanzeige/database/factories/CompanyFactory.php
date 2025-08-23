@@ -16,11 +16,39 @@ class CompanyFactory extends Factory
      */
     public function definition(): array
     {
+        $germanCompanies = [
+            'Siemens AG',
+            'Volkswagen Group',
+            'BMW Group',
+            'Deutsche Bank',
+            'Allianz SE',
+            'BASF SE',
+            'Daimler AG',
+            'Bayer AG',
+            'Adidas AG',
+            'Deutsche Telekom',
+            'SAP SE',
+            'Mercedes-Benz',
+            'Audi AG',
+            'Porsche AG',
+            'Bosch GmbH',
+            'Continental AG',
+            'Henkel AG',
+            'Lufthansa Group',
+            'Deutsche Post',
+            'E.ON SE'
+        ];
+
+        $companyName = $this->faker->randomElement($germanCompanies);
+
+        // Füge eine Nummer hinzu, um Eindeutigkeit zu gewährleisten
+        $companyName = $companyName . ' - ' . $this->faker->numberBetween(1, 999);
+
         return [
-            'name' => $this->faker->company(),
-            'website' => $this->faker->optional()->url(),
-            'email' => $this->faker->optional()->companyEmail(),
-            'phone' => $this->faker->optional()->phoneNumber(),
+            'name' => $companyName,
+            'website' => $this->faker->optional(0.8)->url(),
+            'email' => $this->faker->optional(0.9)->companyEmail(),
+            'phone' => $this->faker->optional(0.7)->numerify('+49 ## #### ####'),
         ];
     }
 }
