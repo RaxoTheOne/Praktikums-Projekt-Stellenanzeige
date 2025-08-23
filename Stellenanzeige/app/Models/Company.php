@@ -12,10 +12,21 @@ class Company extends Model
 
     protected $fillable = [
         'name',
+        'logo',
         'website',
         'email',
         'phone',
     ];
+
+    protected $appends = ['logo_url'];
+
+    public function getLogoUrlAttribute()
+    {
+        if ($this->logo) {
+            return asset('storage/' . $this->logo);
+        }
+        return asset('images/default-company.png');
+    }
 
     public function jobListings()
     {
